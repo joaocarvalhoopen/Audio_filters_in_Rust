@@ -54,22 +54,31 @@
 ///    3. Good resources on DSP – Digital Signal Programming
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_electronics#dsp--digital-signal-programming
 ///
-///    4. WebAudio API - Mozilla Docs
-///       https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API
+///    4. Biquads - EarLevel
+///       http://www.earlevel.com/main/2003/02/28/biquads/
+///
+///    5. Biquad C++ source code - EarLevel
+///       https://www.earlevel.com/main/2012/11/26/biquad-c-source-code/
+///
+///    6. A biquad calculator - EarLevel
+///       http://www.earlevel.com/main/2010/12/20/biquad-calculator/
 /// 
-///    5. Audio Filters - Theory and Practice
+///    7. WebAudio API - Mozilla Docs
+///       https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+/// 
+///    8. Audio Filters - Theory and Practice
 ///       by Ethan Winer
 ///       http://ethanwiner.com/filters.html
 /// 
-///    6. Audio filter - Wikipedia
+///    9. Audio filter - Wikipedia
 ///       https://en.wikipedia.org/wiki/Audio_filter
 /// 
-///    7. Electronic filter - Wikipedia
+///   10. Electronic filter - Wikipedia
 ///       https://en.wikipedia.org/wiki/Electronic_filter
 ///
-///    8. How to learn modern Rust
+///   11. How to learn modern Rust
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
-/// 
+///
 
 
 mod iir_filter;

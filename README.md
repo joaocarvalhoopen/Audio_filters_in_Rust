@@ -87,21 +87,31 @@ to run the tests do:
 3. **Good resources on DSP** – Digital Signal Processing <br> 
    [https://github.com/joaocarvalhoopen/How_to_learn_modern_electronics#dsp--digital-signal-programming](https://github.com/joaocarvalhoopen/How_to_learn_modern_electronics#dsp--digital-signal-programming)
 
-4. **WebAudio API - Mozilla Docs** <br>
-   [https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)
+4. **Biquads - EarLevel** <br>
+   [http://www.earlevel.com/main/2003/02/28/biquads/](http://www.earlevel.com/main/2003/02/28/biquads/)
+
+5. **Biquad C++ source code - EarLevel** <br>
+   [https://www.earlevel.com/main/2012/11/26/biquad-c-source-code/](https://www.earlevel.com/main/2012/11/26/biquad-c-source-code/)
+
+6. **A biquad calculator - EarLevel** <br>
+   [http://www.earlevel.com/main/2010/12/20/biquad-calculator/ ](http://www.earlevel.com/main/2010/12/20/biquad-calculator/)
+
+7. **WebAudio API - Mozilla Docs** <br>
+   [https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)
   
-5. **Audio Filters - Theory and Practice** <br>
+8. **Audio Filters - Theory and Practice** <br>
    by Ethan Winer <br>
    [http://ethanwiner.com/filters.html](http://ethanwiner.com/filters.html)
 
-6. **Audio filter - Wikipedia** <br>
+9.  **Audio filter - Wikipedia** <br>
    [https://en.wikipedia.org/wiki/Audio_filter](https://en.wikipedia.org/wiki/Audio_filter)
 
-7. **Electronic filter - Wikipedia** <br>
+11. **Electronic filter - Wikipedia** <br>
    [https://en.wikipedia.org/wiki/Electronic_filter](https://en.wikipedia.org/wiki/Electronic_filter)
 
-8. **How to learn modern Rust** <br>
+12. **How to learn modern Rust** <br>
    [https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust](https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust)
+
 
 ## License
 
