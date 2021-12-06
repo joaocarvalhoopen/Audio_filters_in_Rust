@@ -3,7 +3,7 @@ A port of the WebAudio API filters to Rust.
 
 ## Description 
 Audio or DSP filters, allow you to attenuate or accentuate some frequencies or range of frequencies in a signal. The signal can be of any kind, but in here, we will focus on 1D signals. Like audio signals. There can also occur differences in the signal phases, that vary with the filter and the frequency components of the signal. <br>
-This is a port of Audio filters, from Python to Rust, from the Audio filter from TheAlgorithms GitHub in Python. That is by it self a port from WebAudio API implementation of the same common filters in the browsers. <br>
+This is a port of Audio filters, from Python to Rust. My port was made from TheAlgorithms GitHub in Python (see references below). That is, by it self a port from WebAudio API C++ filters implementation used by the browsers. <br>
 
 
 ## The following filters are implemented over a BiQuad IIR filter
