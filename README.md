@@ -93,8 +93,8 @@ to run the tests do:
 5. **Biquad C++ source code - EarLevel** <br>
    [https://www.earlevel.com/main/2012/11/26/biquad-c-source-code/](https://www.earlevel.com/main/2012/11/26/biquad-c-source-code/)
 
-6. **A biquad calculator - EarLevel** <br>
-   [http://www.earlevel.com/main/2010/12/20/biquad-calculator/ ](http://www.earlevel.com/main/2010/12/20/biquad-calculator/)
+6. **A biquad calculator v3 - EarLevel** <br>
+   [https://www.earlevel.com/main/2021/09/02/biquad-calculator-v3/](https://www.earlevel.com/main/2021/09/02/biquad-calculator-v3/)
 
 7. **WebAudio API - Mozilla Docs** <br>
    [https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)

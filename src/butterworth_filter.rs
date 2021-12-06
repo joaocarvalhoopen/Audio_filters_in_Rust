@@ -60,8 +60,8 @@
 ///    5. Biquad C++ source code - EarLevel
 ///       https://www.earlevel.com/main/2012/11/26/biquad-c-source-code/
 ///
-///    6. A biquad calculator - EarLevel
-///       http://www.earlevel.com/main/2010/12/20/biquad-calculator/
+///    6. A biquad calculator V3 - EarLevel
+///       https://www.earlevel.com/main/2021/09/02/biquad-calculator-v3/
 /// 
 ///    7. WebAudio API - Mozilla Docs
 ///       https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
