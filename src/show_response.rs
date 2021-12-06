@@ -48,25 +48,29 @@
 ///    1. GitHub - TheAlgorithms / Python / audio_filters
 ///       https://github.com/TheAlgorithms/Python/tree/master/audio_filters
 ///
-///    2. Good resources on DSP – Digital Signal Programming
+///    2. WebAudio - Cookbook formulae for audio equalizer biquad filter coefficients
+///       https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html 
+/// 
+///    3. Good resources on DSP – Digital Signal Programming
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_electronics#dsp--digital-signal-programming
 ///
-///    3. WebAudio API - Mozilla Docs
+///    4. WebAudio API - Mozilla Docs
 ///       https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API
 /// 
-///    4. Audio Filters - Theory and Practice
+///    5. Audio Filters - Theory and Practice
 ///       by Ethan Winer
 ///       http://ethanwiner.com/filters.html
 /// 
-///    5. Audio filter - Wikipedia
+///    6. Audio filter - Wikipedia
 ///       https://en.wikipedia.org/wiki/Audio_filter
 /// 
-///    6. Electronic filter - Wikipedia
+///    7. Electronic filter - Wikipedia
 ///       https://en.wikipedia.org/wiki/Electronic_filter
 ///
-///    7. How to learn modern Rust
+///    8. How to learn modern Rust
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
 /// 
+
 
 
 use crate::iir_filter::IIRFilter;

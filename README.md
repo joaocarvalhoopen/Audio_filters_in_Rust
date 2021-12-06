@@ -81,23 +81,26 @@ to run the tests do:
 1. **GitHub - TheAlgorithms / Python / audio_filters** <br>
    [https://github.com/TheAlgorithms/Python/tree/master/audio_filters](https://github.com/TheAlgorithms/Python/tree/master/audio_filters)
 
-2. **Good resources on DSP** – Digital Signal Processing <br> 
+2. **WebAudio - Cookbook formulae for audio equalizer biquad filter coefficients** <br>
+   [https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html](https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html)
+
+3. **Good resources on DSP** – Digital Signal Processing <br> 
    [https://github.com/joaocarvalhoopen/How_to_learn_modern_electronics#dsp--digital-signal-programming](https://github.com/joaocarvalhoopen/How_to_learn_modern_electronics#dsp--digital-signal-programming)
 
-3. **WebAudio API - Mozilla Docs** <br>
+4. **WebAudio API - Mozilla Docs** <br>
    [https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)
   
-4. **Audio Filters - Theory and Practice** <br>
+5. **Audio Filters - Theory and Practice** <br>
    by Ethan Winer <br>
    [http://ethanwiner.com/filters.html](http://ethanwiner.com/filters.html)
 
-5. **Audio filter - Wikipedia** <br>
+6. **Audio filter - Wikipedia** <br>
    [https://en.wikipedia.org/wiki/Audio_filter](https://en.wikipedia.org/wiki/Audio_filter)
 
-6. **Electronic filter - Wikipedia** <br>
+7. **Electronic filter - Wikipedia** <br>
    [https://en.wikipedia.org/wiki/Electronic_filter](https://en.wikipedia.org/wiki/Electronic_filter)
 
-7. **How to learn modern Rust** <br>
+8. **How to learn modern Rust** <br>
    [https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust](https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust)
 
 ## License
