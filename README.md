@@ -7,34 +7,33 @@ This is a port of Audio filters, from Python to Rust. My port was made from TheA
 
 
 ## The following filters are implemented over a BiQuad IIR filter
-1. **lowpass**
-2. **highpass**
-3. **bandpass**
-4. **allpass**
+1. **low-pass**
+2. **high-pass**
+3. **band-pass**
+4. **all-pass**
 5. **peak**
-6. **lowshelf**
-7. **highshelf** 
-
+6. **low-shelf**
+7. **high-shelf** 
+8. **notch**
 
 ## Plots of the filters Gain (dB) and phase shift response 
 
-### lowpass - freq = 5.000 Hz - sample_rate = 48.000 samples/sec 
+### low-pass - freq = 5.000 Hz - sample_rate = 48.000 samples/sec 
 
 ![Plot gain dB response](./plots/lowpass_gain.svg)
 ![Plot phase shift response](./plots/lowpass_phase.svg) <br>
 
-### highpass - freq = 5.000 Hz - sample_rate = 48.000 samples/sec
+### high-pass - freq = 5.000 Hz - sample_rate = 48.000 samples/sec
 
 ![Plot gain dB response](./plots/highpass_gain.svg)
 ![Plot phase shift response](./plots/highpass_phase.svg) <br>
 
-
-### bandpass - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - q_factor = 1.0
+### band-pass - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - q_factor = 1.0
 
 ![Plot gain dB response](./plots/bandpass_gain.svg)
 ![Plot phase shift response](./plots/bandpass_phase.svg) <br>
 
-### allpass - freq = 10.000 Hz - sample_rate = 48.000 samples/sec
+### all-pass - freq = 10.000 Hz - sample_rate = 48.000 samples/sec
 
 ![Plot gain dB response](./plots/allpass_gain.svg)
 ![Plot phase shift response](./plots/allpass_phase.svg) <br>
@@ -44,15 +43,20 @@ This is a port of Audio filters, from Python to Rust. My port was made from TheA
 ![Plot gain dB response](./plots/peak_gain.svg)
 ![Plot phase shift response](./plots/peak_phase.svg) <br>
 
-### lowshelf - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = 6 dB
+### low-shelf - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = 6 dB
 
 ![Plot gain dB response](./plots/lowshelf_gain.svg)
 ![Plot phase shift response](./plots/lowshelf_phase.svg) <br>
 
-### highshelf - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = 6 dB
+### high-shelf - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = 6 dB
 
 ![Plot gain dB response](./plots/highshelf_gain.svg)
 ![Plot phase shift response](./plots/highshelf_phase.svg) <br>
+
+### notch - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - q_factor = 0.05
+
+![Plot gain dB response](./plots/notch_gain.svg)
+![Plot phase shift response](./plots/notch_phase.svg) <br>
 
 
 ## How to run the code 

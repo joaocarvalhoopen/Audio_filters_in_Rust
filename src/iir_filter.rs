@@ -13,13 +13,14 @@
 ///              filters in the browsers.
 /// 
 ///              The following filters are implemented over a BiQuad IIR filter:
-///                 -lowpass
-///                 -highpass
-///                 -bandpass
-///                 -allpass
+///                 -low-pass
+///                 -high-pass
+///                 -band-pass
+///                 -all-pass
 ///                 -peak
-///                 -lowshelf
-///                 -highshelf 
+///                 -low-shelf
+///                 -high-shelf 
+///                 -notch
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters

@@ -13,13 +13,14 @@
 ///              filters in the browsers.
 /// 
 ///              The following filters are implemented over a BiQuad IIR filter:
-///                 -lowpass
-///                 -highpass
-///                 -bandpass
-///                 -allpass
+///                 -low-pass
+///                 -high-pass
+///                 -band-pass
+///                 -all-pass
 ///                 -peak
-///                 -lowshelf
-///                 -highshelf 
+///                 -low-shelf
+///                 -high-shelf 
+///                 -notch
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters
@@ -93,6 +94,7 @@ use crate::butterworth_filter::make_allpass;
 use crate::butterworth_filter::make_peak;
 use crate::butterworth_filter::make_lowshelf;
 use crate::butterworth_filter::make_highshelf;
+use crate::butterworth_filter::make_notch;
 
 use crate::show_response::show_frequency_response;
 use crate::show_response::show_phase_response;
@@ -128,59 +130,67 @@ fn test_b() {
 fn generate_plots() {
     print!("\nStarting generating the SVG plots...");
 
-    // lowpass
+    // low-pass
     let frequency   = 5_000.0;  // Hz
-    let sample_rate = 48_000; // Samples
+    let sample_rate = 48_000;   // Samples
     let mut filter = make_lowpass(frequency, sample_rate, None);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/lowpass_gain.svg", "lowpass");
     show_phase_response(& mut filter, sample_rate as usize, "plots/lowpass_phase.svg", "lowpass");
 
-    // highpass
+    // high-pass
     let frequency   = 5_000.0;  // Hz
-    let sample_rate = 48_000; // Samples
+    let sample_rate = 48_000;   // Samples
     let mut filter = make_highpass(frequency, sample_rate, None);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/highpass_gain.svg", "highpass");
     show_phase_response(& mut filter, sample_rate as usize, "plots/highpass_phase.svg", "highpass");
 
-    // bandpass
+    // band-pass
     let frequency   = 10_000.0;  // Hz
-    let sample_rate = 48_000;  // Samples
+    let sample_rate = 48_000;    // Samples
     // Note: I have put a larger q_factor then the default so that the band pass is more accentuated. 
     let q_factor = Some(1.0);
     let mut filter = make_bandpass(frequency, sample_rate, q_factor);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/bandpass_gain.svg", "bandpass");
     show_phase_response(& mut filter, sample_rate as usize, "plots/bandpass_phase.svg", "bandpass");
 
-    // allpass
+    // all-pass
     let frequency   = 10_000.0;  // Hz
-    let sample_rate = 48_000; // Samples
+    let sample_rate = 48_000;    // Samples
     let mut filter = make_allpass(frequency, sample_rate, None);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/allpass_gain.svg", "allpass");
     show_phase_response(& mut filter, sample_rate as usize, "plots/allpass_phase.svg", "allpass");
 
     // peak
     let frequency   = 10_000.0;  // Hz
-    let sample_rate = 48_000; // Samples
-    let gain_db = 6.0;          // dB
+    let sample_rate = 48_000;    // Samples
+    let gain_db     = 6.0;       // dB
     let mut filter = make_peak(frequency, sample_rate, gain_db, None);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/peak_gain.svg", "peak");
     show_phase_response(& mut filter, sample_rate as usize, "plots/peak_phase.svg", "peak");
 
-    // lowshelf
+    // low-shelf
     let frequency   = 10_000.0;  // Hz
-    let sample_rate = 48_000; // Samples
-    let gain_db = 6.0;          // dB
+    let sample_rate = 48_000;    // Samples
+    let gain_db     = 6.0;       // dB
     let mut filter = make_lowshelf(frequency, sample_rate, gain_db, None);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/lowshelf_gain.svg", "lowshelf");
     show_phase_response(& mut filter, sample_rate as usize, "plots/lowshelf_phase.svg", "lowshelf");
 
-    // highshelf
+    // high-shelf
     let frequency   = 10_000.0;  // Hz
-    let sample_rate = 48_000; // Samples
-    let gain_db = 6.0;          // dB
+    let sample_rate = 48_000;    // Samples
+    let gain_db     = 6.0;       // dB
     let mut filter = make_highshelf(frequency, sample_rate, gain_db, None);
     show_frequency_response(& mut filter, sample_rate as usize, "plots/highshelf_gain.svg", "highshelf");
     show_phase_response(& mut filter, sample_rate as usize, "plots/highshelf_phase.svg", "highshelf");
+
+    // notch
+    let frequency   = 10_000.0;  // Hz
+    let sample_rate = 48_000;    // Samples
+    let q_factor    = 0.05;
+    let mut filter = make_notch(frequency, sample_rate, Some(q_factor));
+    show_frequency_response(& mut filter, sample_rate as usize, "plots/notch_gain.svg", "notch");
+    show_phase_response(& mut filter, sample_rate as usize, "plots/notch_phase.svg", "notch");
 
     println!("\n ... ended generating the SVG plots.");
 

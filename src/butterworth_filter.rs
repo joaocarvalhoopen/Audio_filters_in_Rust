@@ -13,13 +13,14 @@
 ///              filters in the browsers.
 /// 
 ///              The following filters are implemented over a BiQuad IIR filter:
-///                 -lowpass
-///                 -highpass
-///                 -bandpass
-///                 -allpass
+///                 -low-pass
+///                 -high-pass
+///                 -band-pass
+///                 -all-pass
 ///                 -peak
-///                 -lowshelf
-///                 -highshelf 
+///                 -low-shelf
+///                 -high-shelf 
+///                 -notch
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters
@@ -347,6 +348,43 @@ pub fn make_highshelf(frequency: f64, sample_rate: u32, gain_db: f64, q_factor: 
     
     filter
 }
+
+
+/// Creates a notch filter
+///
+/// In Python: 
+///    >>> filter = make_notch(1000, 48000, 10)
+///    >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
+///    [, , , ,
+///    , ]
+/// 
+pub fn make_notch(frequency: f64, sample_rate: u32, q_factor: Option<f64>) -> IIRFilter {
+    let q_factor: f64 = if q_factor.is_none() {
+                                1.0 / f64::sqrt(2.0)
+                        } else {
+                            q_factor.unwrap()
+                        };
+
+        let w0 = TAU * frequency / sample_rate as f64;
+        let _sin = f64::sin(w0);
+        let _cos = f64::cos(w0);
+        use std::f64::consts::E;
+        let alpha = _sin * f64::sinh((f64::log(2.0,E) / 2.0) * q_factor * (w0 /_sin ));
+    
+        let b0 =  1.0;
+        let b1 = -2.0 * _cos;
+
+        let a0 =  1.0 + alpha;
+        let a1 = -2.0 * _cos;
+        let a2 =  1.0 - alpha;
+    
+        let filter_order = 2;
+        let mut filter = IIRFilter::new(filter_order);
+        let _ = filter.set_coefficients(& [a0, a1, a2], & [b0, b1, b0]);
+        
+        filter
+}
+
 
 
 #[cfg(test)]
