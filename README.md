@@ -29,7 +29,7 @@ This is a port of Audio filters, from Python to Rust. My port was made from TheA
 ![Plot phase shift response](./plots/highpass_phase.svg) <br>
 
 
-### bandpass - freq = 10.000 Hz - sample_rate = 48.000 samples/sec
+### bandpass - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - q_factor = 1.0
 
 ![Plot gain dB response](./plots/bandpass_gain.svg)
 ![Plot phase shift response](./plots/bandpass_phase.svg) <br>
