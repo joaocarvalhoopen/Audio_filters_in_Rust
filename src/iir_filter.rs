@@ -21,6 +21,7 @@
 ///                 -low-shelf
 ///                 -high-shelf 
 ///                 -notch
+///                 -10 band equalizer
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters
@@ -80,6 +81,27 @@
 ///   11. How to learn modern Rust
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
 ///
+/// 
+/// 10 Band Equalizer
+/// 
+///   12. Making an EQ from cascading filters
+///       https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters
+/// 
+///   13. PEAK/NOTCH FILTER DESIGN
+///       https://www.dsprelated.com/showcode/169.php
+/// 
+///   14. The Equivalence of Various Methods of Computing
+///       Biquad Coefficients for Audio Parametric Equalizers
+///       http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf
+///
+///   15. How to learn modern Rust
+///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
+///
+
+
+pub trait ProcessingBlock {
+    fn process(& mut self, sample: f64) -> f64;
+}
 
 
 /// N-Order IIR filter
@@ -168,7 +190,11 @@ impl IIRFilter {
         
         Ok(())
     }
-    
+
+}
+
+impl ProcessingBlock for IIRFilter {
+
     /// Calculate y[n]
     /// 
     /// In Python
@@ -181,7 +207,7 @@ impl IIRFilter {
     ///     >>> filt.process(0.0)
     ///     0.0
     ///
-    pub fn process(& mut self, sample: f64) -> f64 {
+    fn process(& mut self, sample: f64) -> f64 {
         let mut result: f64 = 0.0;
 
         // Start at index 1 and do index 0 at the end.
@@ -202,6 +228,7 @@ impl IIRFilter {
 
         result
     }
+
 }
 
 #[cfg(test)]

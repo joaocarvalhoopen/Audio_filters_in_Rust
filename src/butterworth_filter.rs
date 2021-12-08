@@ -21,6 +21,7 @@
 ///                 -low-shelf
 ///                 -high-shelf 
 ///                 -notch
+///                 -10 band equalizer
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters
@@ -80,10 +81,27 @@
 ///   11. How to learn modern Rust
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
 ///
+/// 
+/// 10 Band Equalizer
+/// 
+///   12. Making an EQ from cascading filters
+///       https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters
+/// 
+///   13. PEAK/NOTCH FILTER DESIGN
+///       https://www.dsprelated.com/showcode/169.php
+/// 
+///   14. The Equivalence of Various Methods of Computing
+///       Biquad Coefficients for Audio Parametric Equalizers
+///       http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf
+///
+///   15. How to learn modern Rust
+///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
+///
 
 
 use crate::iir_filter::IIRFilter;
 use std::f64::consts::TAU;
+use std::f64::consts::PI;
 
 /// Create 2nd-order IIR filters with Butterworth design.
 /// 
@@ -267,6 +285,89 @@ pub fn make_peak(frequency: f64, sample_rate: u32, gain_db: f64, q_factor: Optio
     
     filter
 
+}
+
+// This is a peak_eq filter similar to the above peak filter but with constant Q and the gain
+// is taken at -3dB like a analog peak_eq filter would be.
+// This filter is ideal to make equalizers, like a 10 band parametric equalizer.
+//
+// See:
+//      1. Peak / notch filter design
+//         https://www.dsprelated.com/showcode/169.php#commax_container
+//
+//      and
+//
+//      2. Making an EQ from cascading filters
+//         https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters  
+//
+//      and
+//
+//      3. The Equivalence of Various Methods of Computing
+//         Biquad Coefficients for Audio Parametric Equalizers
+//         http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf
+//
+pub fn make_peak_eq_constant_q(frequency_center: f64, sample_rate: u32, gain_db: f64, q_factor: Option<f64>) -> IIRFilter {
+    // This specific filter is a port to Rust with modifications from the following example code:
+    //    PEAK/NOTCH FILTER DESIGN
+    //    https://www.dsprelated.com/showcode/169.php#commax_container
+    //
+    // Derive coefficients for a peaking filter with a given amplitude and
+    // bandwidth.  All coefficients are calculated as described in Zolzer's
+    // DAFX book (p. 50 - 55).  This algorithm assumes a constant Q-term
+    // is used through the equation.
+    //
+    // Original Author:    sparafucile17 08/22/05
+    //
+    
+    let q_factor: f64 = if q_factor.is_none() {
+                                1.0 / f64::sqrt(2.0)
+                        } else {
+                            q_factor.unwrap()
+                        };
+
+    let q = q_factor;
+    let k = f64::tan((PI * frequency_center) / sample_rate as f64);
+    let mut v0 = 10.0_f64.powf(gain_db / 20.0);
+    
+    // Invert gain if a cut
+    if v0 < 1.0  {
+        v0 = 1.0 / v0;
+    }
+    
+    let b0: f64;
+    let b1: f64;
+    let b2: f64;
+    let a1: f64;
+    let a2: f64;
+
+    let _k_sqr = k.powf(2.0);
+    //***********
+    //   BOOST
+    //***********
+    if gain_db > 0.0 {
+        b0 = (1.0 + ((v0 / q) * k) + _k_sqr) / (1.0 + ((1.0 / q) * k) + _k_sqr);
+        b1 =        (2.0 * (_k_sqr - 1.0)) / (1.0 + ((1.0 / q) *  k) + _k_sqr);
+        b2 = (1.0 - ((v0 / q) * k) + _k_sqr) / (1.0 + ((1.0 / q) * k) + _k_sqr);
+        a1 = b1;
+        a2 =  (1.0 - ((1.0 / q) * k) + _k_sqr) / (1.0 + ((1.0 / q) * k) + _k_sqr);
+        
+    //***********
+    //    CUT
+    //***********
+    } else {  
+        b0 = (1.0 + ((1.0 / q) * k) + _k_sqr) / (1.0 + ((v0 / q) * k) + _k_sqr);
+        b1 =       (2.0 * (_k_sqr - 1.0)) / (1.0 + ((v0 / q) * k) + _k_sqr);
+        b2 = (1.0 - ((1.0 / q) * k) + _k_sqr) / (1.0 + ((v0 / q) * k) + _k_sqr);
+        a1 = b1;
+        a2 = (1.0 - ((v0 / q) * k) + _k_sqr) / (1.0 + ((v0 / q) * k) + _k_sqr);
+    }
+
+    let filter_order = 2;
+    let mut filter = IIRFilter::new(filter_order);
+    // Note: The BiQuad filter fill's in the a0 with i.0 automatically.
+    let _ = filter.set_coefficients(& [a1, a2], & [b0, b1, b2]);
+    
+    filter
 }
 
 /// Creates a low-shelf filter

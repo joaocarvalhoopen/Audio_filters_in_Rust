@@ -15,6 +15,7 @@ This is a port of Audio filters, from Python to Rust. My port was made from TheA
 6. **low-shelf**
 7. **high-shelf** 
 8. **notch**
+9. **10 band equalizer**
 
 ## Plots of the filters Gain (dB) and phase shift response 
 
@@ -43,6 +44,18 @@ This is a port of Audio filters, from Python to Rust. My port was made from TheA
 ![Plot gain dB response](./plots/peak_gain.svg)
 ![Plot phase shift response](./plots/peak_phase.svg) <br>
 
+### peakEQ_const_Q G_pos - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = 5 dB
+q_factor = 2 * sqrt(2) = 2.828 <br>
+
+![Plot gain dB response](./plots/peak_eq_pos_g_gain.svg)
+![Plot phase shift response](./plots/peak_eq_pos_g_phase.svg) <br>
+
+### peakEQ_const_Q G_neg - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = -5 dB
+q_factor = 2 * sqrt(2) = 2.828 <br>
+
+![Plot gain dB response](./plots/peak_eq_neg_g_gain.svg)
+![Plot phase shift response](./plots/peak_eq_neg_g_phase.svg) <br>
+
 ### low-shelf - freq = 10.000 Hz - sample_rate = 48.000 samples/sec - gain = 6 dB
 
 ![Plot gain dB response](./plots/lowshelf_gain.svg)
@@ -57,6 +70,25 @@ This is a port of Audio filters, from Python to Rust. My port was made from TheA
 
 ![Plot gain dB response](./plots/notch_gain.svg)
 ![Plot phase shift response](./plots/notch_phase.svg) <br>
+
+### 10 band Equalizer - sample_rate = 48.000 samples/sec - q_factor = 2.828
+```
+10 Band Equalizer
+
+band_0:     29 Hz, gain: -10 dB
+band_1:     59 Hz, gain:   0 dB
+band_2:    119 Hz, gain:  -5 dB
+band_3:    237 Hz, gain:   5 dB
+band_4:    474 Hz, gain:   0 dB
+band_5:    947 Hz, gain:  -5 dB
+band_6:  1.889 Hz, gain:   0 dB
+band_7:  3.770 Hz, gain:   5 dB
+band_8:  7.523 Hz, gain:  10 dB
+band_9: 15.011 Hz, gain:  12 dB
+```
+
+![Plot gain dB response](./plots/equalizer_10_band_gain.svg)
+![Plot phase shift response](./plots/equalizer_10_band_phase.svg) <br>
 
 
 ## How to run the code 
@@ -113,7 +145,19 @@ to run the tests do:
 11. **Electronic filter - Wikipedia** <br>
    [https://en.wikipedia.org/wiki/Electronic_filter](https://en.wikipedia.org/wiki/Electronic_filter)
 
-12. **How to learn modern Rust** <br>
+**10 Bands Equalizer** <br>
+
+12. **Making an EQ from cascading filters** <br>
+    [https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters](https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters)
+ 
+13. **Peak / Notch filter design** <br>
+    [https://www.dsprelated.com/showcode/169.php](https://www.dsprelated.com/showcode/169.php)
+
+14. **The Equivalence of Various Methods of Computing** <br>
+    **Biquad Coefficients for Audio Parametric Equalizers** <br>
+    [http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf](http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf)
+
+15. **How to learn modern Rust** <br>
    [https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust](https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust)
 
 

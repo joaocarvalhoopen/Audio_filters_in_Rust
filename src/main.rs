@@ -21,6 +21,7 @@
 ///                 -low-shelf
 ///                 -high-shelf 
 ///                 -notch
+///                 -10 band equalizer
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters
@@ -80,24 +81,47 @@
 ///   11. How to learn modern Rust
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
 ///
+/// 
+/// 10 Band Equalizer
+/// 
+///   12. Making an EQ from cascading filters
+///       https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters
+/// 
+///   13. PEAK/NOTCH FILTER DESIGN
+///       https://www.dsprelated.com/showcode/169.php
+/// 
+///   14. The Equivalence of Various Methods of Computing
+///       Biquad Coefficients for Audio Parametric Equalizers
+///       http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf
+///
+///   15. How to learn modern Rust
+///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
+///
 
 
+// Module definition
 mod iir_filter;
 mod butterworth_filter;
 mod show_response;
+mod equalizer;
 
+// Imports
+use crate::iir_filter::ProcessingBlock;  // Trait
 use crate::iir_filter::IIRFilter;
 use crate::butterworth_filter::make_lowpass;
 use crate::butterworth_filter::make_highpass;
 use crate::butterworth_filter::make_bandpass;
 use crate::butterworth_filter::make_allpass;
 use crate::butterworth_filter::make_peak;
+use crate::butterworth_filter::make_peak_eq_constant_q;
 use crate::butterworth_filter::make_lowshelf;
 use crate::butterworth_filter::make_highshelf;
 use crate::butterworth_filter::make_notch;
 
 use crate::show_response::show_frequency_response;
 use crate::show_response::show_phase_response;
+
+use crate::equalizer::Equalizer;
 
 
 fn main() {
@@ -109,6 +133,8 @@ fn main() {
     test_b();
 
     generate_plots();
+    // generate_plot_equalizer_10_bands_01();
+    generate_plot_equalizer_10_bands_02();
 }
 
 fn test_a() {
@@ -168,6 +194,21 @@ fn generate_plots() {
     show_frequency_response(& mut filter, sample_rate as usize, "plots/peak_gain.svg", "peak");
     show_phase_response(& mut filter, sample_rate as usize, "plots/peak_phase.svg", "peak");
 
+    // peak_eq_constant_q positive and negative gain.
+    let frequency   = 10_000.0;  // Hz
+    let sample_rate = 48_000;    // Samples
+    let gain_db     = 5.0;       // dB
+    // A good value for a 10 band equalizer.
+    // See: The second reference on the function make_peak_eq_constant_q.
+    let q_factor = Some(2.0 * f64::sqrt(2.0));
+    let mut filter = make_peak_eq_constant_q(frequency, sample_rate, gain_db, q_factor);
+    show_frequency_response(& mut filter, sample_rate as usize, "plots/peak_eq_pos_g_gain.svg", "peakEQ_G+");
+    show_phase_response(& mut filter, sample_rate as usize, "plots/peak_eq_pos_g_phase.svg", "peakEQ_G+");
+    let gain_db     = -5.0;       // dB
+    let mut filter = make_peak_eq_constant_q(frequency, sample_rate, gain_db, q_factor);
+    show_frequency_response(& mut filter, sample_rate as usize, "plots/peak_eq_neg_g_gain.svg", "peakEQ_G-");
+    show_phase_response(& mut filter, sample_rate as usize, "plots/peak_eq_neg_g_phase.svg", "peakEQ_G-");
+
     // low-shelf
     let frequency   = 10_000.0;  // Hz
     let sample_rate = 48_000;    // Samples
@@ -193,6 +234,51 @@ fn generate_plots() {
     show_phase_response(& mut filter, sample_rate as usize, "plots/notch_phase.svg", "notch");
 
     println!("\n ... ended generating the SVG plots.");
-
 }
 
+#[allow(dead_code)]
+fn generate_plot_equalizer_10_bands_01() {
+    println!("\n10 Band Equalizer\n");
+    let sample_rate = 48_000;
+    let mut eq: Equalizer = Equalizer::make_equalizer_10_band(sample_rate);
+    // Set the gains for each_frequency band.
+    let _= eq.set_band_gain(0, -15.0);
+    let _= eq.set_band_gain(2, -10.0);
+    let _= eq.set_band_gain(1,  -5.0);
+    let _= eq.set_band_gain(3,   0.0);
+    let _= eq.set_band_gain(4,  -5.0);
+    let _= eq.set_band_gain(5,  10.0);
+    let _= eq.set_band_gain(6, -15.0);
+    let _= eq.set_band_gain(7,   0.0);
+    let _= eq.set_band_gain(8,   5.0);
+    let _= eq.set_band_gain(9, -10.0);
+    for i in 0..10 {
+        println!("{} Hz :  {} dB", eq.get_bands_freq(i), eq.get_band_gain(i));
+    }
+    println!("\n");
+    show_frequency_response(& mut eq, sample_rate as usize, "plots/equalizer_10_band_gain.svg", "equ_10_bands");
+    show_phase_response(& mut eq, sample_rate as usize, "plots/equalizer_10_band_phase.svg", "equ_10_bands");
+}
+
+fn generate_plot_equalizer_10_bands_02() {
+    println!("\n10 Band Equalizer\n");
+    let sample_rate = 48_000;
+    let mut eq: Equalizer = Equalizer::make_equalizer_10_band(sample_rate);
+    // Set the gains for each_frequency band.
+    let _= eq.set_band_gain(0, -10.0);
+    let _= eq.set_band_gain(2,  -5.0);
+    let _= eq.set_band_gain(1,   0.0);
+    let _= eq.set_band_gain(3,   5.0);
+    let _= eq.set_band_gain(4,   0.0);
+    let _= eq.set_band_gain(5,  -5.0);
+    let _= eq.set_band_gain(6,   0.0);
+    let _= eq.set_band_gain(7,   5.0);
+    let _= eq.set_band_gain(8,  10.0);
+    let _= eq.set_band_gain(9,  12.0);
+    for i in 0..10 {
+        println!("{} Hz :  {} dB", eq.get_bands_freq(i), eq.get_band_gain(i));
+    }
+    println!("\n");
+    show_frequency_response(& mut eq, sample_rate as usize, "plots/equalizer_10_band_gain.svg", "equ_10_bands");
+    show_phase_response(& mut eq, sample_rate as usize, "plots/equalizer_10_band_phase.svg", "equ_10_bands");
+}

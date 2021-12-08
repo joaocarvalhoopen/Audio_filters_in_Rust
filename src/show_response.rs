@@ -21,6 +21,7 @@
 ///                 -low-shelf
 ///                 -high-shelf 
 ///                 -notch
+///                 -10 band equalizer
 ///  
 /// License: MIT Open Source License, like the original license from
 ///    GitHub - TheAlgorithms / Python / audio_filters
@@ -80,9 +81,25 @@
 ///   11. How to learn modern Rust
 ///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
 ///
+/// 
+/// 10 Band Equalizer
+/// 
+///   12. Making an EQ from cascading filters
+///       https://dsp.stackexchange.com/questions/10309/making-an-eq-from-cascading-filters
+/// 
+///   13. PEAK/NOTCH FILTER DESIGN
+///       https://www.dsprelated.com/showcode/169.php
+/// 
+///   14. The Equivalence of Various Methods of Computing
+///       Biquad Coefficients for Audio Parametric Equalizers
+///       http://www.thesounddesign.com/MIO/EQ-Coefficients.pdf
+///
+///   15. How to learn modern Rust
+///       https://github.com/joaocarvalhoopen/How_to_learn_modern_Rust
+///
 
 
-use crate::iir_filter::IIRFilter;
+use crate::iir_filter::ProcessingBlock; // Trait
 use std::f32::consts::TAU as TAU_f32;
 
 
@@ -94,7 +111,7 @@ use std::f32::consts::TAU as TAU_f32;
 ///     >>> get_bounds(array, 1000)
 ///     (-20, 20)
 ///
-pub fn get_bounds(fft_results: & [f32], sample_rate: usize, x_bound_max: usize) -> (f32, f32) {
+pub fn get_bounds(fft_results: & [f32], _sample_rate: usize, x_bound_max: usize) -> (f32, f32) {
     // let slice_upper_bound = (sample_rate / 2) - 1;
     // let slice_upper_bound = (sample_rate / 2) - 1 - 100;
     let slice_upper_bound = x_bound_max;
@@ -119,7 +136,7 @@ pub fn get_bounds(fft_results: & [f32], sample_rate: usize, x_bound_max: usize) 
 ///     >>> filt = IIRFilter(4)
 ///     >>> show_frequency_response(filt, 48000)
 ///
-pub fn show_frequency_response(filter: & mut IIRFilter, sample_rate: usize, path: & str, line_name: & str) {
+pub fn show_frequency_response(processing_block: & mut dyn ProcessingBlock, sample_rate: usize, path: & str, line_name: & str) {
 
     let size = 512_usize;
     // Excites the filter with an input of only a peak value (1.0) in the first sample, and the rest with (0.0) zero, as samples.
@@ -130,7 +147,7 @@ pub fn show_frequency_response(filter: & mut IIRFilter, sample_rate: usize, path
                           };
     let mut outputs: Vec<f64> = Vec::with_capacity(size);
     for i in 0..size {
-        outputs.push(filter.process(inputs[i]));
+        outputs.push(processing_block.process(inputs[i]));
     }
     // zero-padding.
     let filler = vec![0.0; sample_rate - size];
@@ -199,7 +216,7 @@ pub fn show_frequency_response(filter: & mut IIRFilter, sample_rate: usize, path
 ///     >>> filt = IIRFilter(4)
 ///     >>> show_phase_response(filt, 48000)
 /// 
-pub fn show_phase_response(filter: & mut IIRFilter, sample_rate: usize, path: & str, line_name: & str) {
+pub fn show_phase_response(processing_block: & mut dyn ProcessingBlock, sample_rate: usize, path: & str, line_name: & str) {
 
     let size = 512_usize;
     // Excites the filter with an input of only a peak value (1.0) in the first sample, and the rest with (0.0) zero, as samples.
@@ -210,7 +227,7 @@ pub fn show_phase_response(filter: & mut IIRFilter, sample_rate: usize, path: & 
                           };
     let mut outputs: Vec<f64> = Vec::with_capacity(size);
     for i in 0..size {
-        outputs.push(filter.process(inputs[i]));
+        outputs.push(processing_block.process(inputs[i]));
     }
     // zero-padding.
     let filler = vec![0.0; sample_rate - size];
